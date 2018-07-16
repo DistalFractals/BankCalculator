@@ -10,5 +10,5 @@ package calculator;
  * @author Owner
  */
 public class CertificateOfDeposit extends Account {
-    
+    private int lengthToMature;
 }

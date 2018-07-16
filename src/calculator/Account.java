@@ -10,5 +10,13 @@ package calculator;
  * @author Owner
  */
 public class Account {
-    
+
+    public double principal;
+    public double rate;
+    public int period;
+
+    public double calculate() {
+        int foo = 7;
+        return foo;
+    }
 }
