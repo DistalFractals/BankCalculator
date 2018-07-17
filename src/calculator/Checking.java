@@ -10,7 +10,11 @@ package calculator;
  * @author Owner
  */
 public class Checking extends Account {
-
+    public Checking(double initialBalance, double interestRate, int period, int firstCheckNumber, double monthlyFee){
+        basicSetup(initialBalance, interestRate, period);
+        this.setCheckNumber(firstCheckNumber);
+        this.setMonthlyFee(monthlyFee);
+    }
     /**
      * @return the checkNumber
      */
@@ -43,7 +47,7 @@ public class Checking extends Account {
 
     @Override
     public void calculate() {
-        for (int i = 0; i < period; i++) {
+        for (currentPeriod = 0; currentPeriod < period; currentPeriod++) {
             interestEarned = principal * rate;
             principal = interestEarned + principal;
             principal = principal - monthlyFee;
