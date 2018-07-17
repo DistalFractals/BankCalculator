@@ -10,5 +10,19 @@ package calculator;
  * @author Owner
  */
 public class CertificateOfDeposit extends Account {
+
+    /**
+     * @return the lengthToMature
+     */
+    public int getLengthToMature() {
+        return lengthToMature;
+    }
+
+    /**
+     * @param lengthToMature the lengthToMature to set
+     */
+    public void setLengthToMature(int lengthToMature) {
+        this.lengthToMature = lengthToMature;
+    }
     private int lengthToMature;
 }

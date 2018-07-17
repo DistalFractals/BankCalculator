@@ -40,10 +40,15 @@ public class Checking extends Account {
     }
     private int checkNumber;
     private double monthlyFee;
-    
+
     @Override
-        public double calculate(){
-            int foo = 7;
-            return foo;
+    public void calculate() {
+        for (int i = 0; i < period; i++) {
+            interestEarned = principal * rate;
+            principal = interestEarned + principal;
+            principal = principal - monthlyFee;
+            Banker.displayAccount(this);
         }
+
+    }
 }

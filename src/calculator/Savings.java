@@ -9,6 +9,6 @@ package calculator;
  *
  * @author Owner
  */
-public class Savings extends Account {
+public class Savings extends Account{
     
 }
