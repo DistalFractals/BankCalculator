@@ -10,11 +10,30 @@ package calculator;
  * @author Owner
  */
 public class Checking extends Account {
-    public Checking(double initialBalance, double interestRate, int period, int firstCheckNumber, double monthlyFee){
-        basicSetup(initialBalance, interestRate, period);
+
+    /**
+     * @return the initializationString
+     */
+    public String getInitializationString() {
+        return initializationString;
+    }
+
+    /**
+     * @param initializationString the initializationString to set
+     */
+    public void setInitializationString(String initializationString) {
+        this.initializationString = initializationString;
+    }
+    public Checking(int accountNumber, double initialBalance, double interestRate, int period, int firstCheckNumber, double monthlyFee){
+        String basicInitializationString = basicSetup(accountNumber, initialBalance, interestRate, period);
         this.setCheckNumber(firstCheckNumber);
         this.setMonthlyFee(monthlyFee);
+        String initializationString = "A checking account " + basicInitializationString;
+        initializationString += " This account has a monthly fee of " + monthlyFee;
+        initializationString+= ". Checks for this account will start with number " + firstCheckNumber;
+        this.setInitializationString(initializationString);
     }
+    private String initializationString;
     /**
      * @return the checkNumber
      */

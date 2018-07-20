@@ -9,13 +9,39 @@ package calculator;
  *
  * @author Owner
  */
-public class Account {
-    
+public abstract class Account {
+
+    /**
+     * @return the accountNumber
+     */
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    /**
+     * @param accountNumber the accountNumber to set
+     */
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+    private int accountNumber;
+
+    protected int currentPeriod;
+
     /**
      * @return the principal
      */
     public double getPrincipal() {
         return principal;
+    }
+
+    public String basicSetup(int accountNumber, double initialBalance, double interestRate, int period) {
+        this.setPrincipal(initialBalance);
+        this.setRate(interestRate);
+        this.setPeriod(period);
+        this.setAccountNumber(accountNumber);
+        String basicInitializationString = "with account number " + accountNumber + " has been created with an initial balance of " + initialBalance + " with a monthly interest rate of " + interestRate + " , and will gather interest for " + period + " months.";
+        return basicInitializationString;
     }
 
     /**
@@ -59,18 +85,19 @@ public class Account {
     //period is a number of months
     protected int period;
     protected double interestEarned;
-    
+
     public void calculate() {
-        for(int i=0; i<period; i++){
+        for (currentPeriod = 0; currentPeriod < period; currentPeriod++) {
             interestEarned = principal * rate;
             principal = interestEarned + principal;
             Banker.displayAccount(this);
         }
-        
+        Banker.printSeparator(this);
     }
+
     @Override
-    public String toString(){
-        return "Period number: " + period + " | Interest earned: " + interestEarned + " | Balance: " + principal;
+    public String toString() {
+        return "Account number: " + accountNumber + " | Period number: " + currentPeriod + " | Interest earned: " + interestEarned + " | Balance: " + principal;
     }
-        
+
 }

@@ -10,5 +10,7 @@ package calculator;
  * @author Owner
  */
 public class Savings extends Account{
-    
+    public Savings(int accountNumber, double initialBalance, double interestRate, int period){
+        basicSetup(accountNumber, initialBalance, interestRate, period);
+    }
 }

@@ -11,6 +11,11 @@ package calculator;
  */
 public class CertificateOfDeposit extends Account {
 
+    public CertificateOfDeposit(int accountNumber, double initialBalance, double interestRate, int period, int lengthToMature) {
+        basicSetup(accountNumber, initialBalance, interestRate, period);
+        this.setLengthToMature(lengthToMature);
+    }
+
     /**
      * @return the lengthToMature
      */
