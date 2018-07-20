@@ -11,11 +11,14 @@ import java.math.BigDecimal;
  *
  * @author Owner
  */
-public class CertificateOfDeposit extends Account {
+public final class CertificateOfDeposit extends Account {
 
-    public CertificateOfDeposit(int accountNumber, BigDecimal initialBalance, BigDecimal interestRate, int period, int lengthToMature) {
-        basicSetup(accountNumber, initialBalance, interestRate, period);
+    public CertificateOfDeposit(String accountNumber, BigDecimal initialBalance, BigDecimal interestRate, int period, int lengthToMature) {
+        String basicInitializationString = basicSetup(accountNumber, initialBalance, interestRate, period);
         this.setLengthToMature(lengthToMature);
+        String initializationMessage = "Created: certificate of deposit | " + basicInitializationString;
+        initializationMessage += "\n Account mature in: " + lengthToMature + " months";
+        Banker.displayInitialization(initializationMessage);
     }
 
     /**

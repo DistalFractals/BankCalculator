@@ -13,21 +13,22 @@ import java.math.RoundingMode;
  * @author Owner
  */
 public abstract class Account {
-    public static final int DECIMAL_PRECISION = 2;
+
     /**
-     * @return the accountNumber
+     * @return the uniqueIdentifier
      */
-    public int getAccountNumber() {
-        return accountNumber;
+    public String getUniqueIdentifier() {
+        return uniqueIdentifier;
     }
 
     /**
-     * @param accountNumber the accountNumber to set
+     * @param uniqueIdentifier the uniqueIdentifier to set
      */
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setUniqueIdentifier(String uniqueIdentifier) {
+        this.uniqueIdentifier = uniqueIdentifier;
     }
-    private int accountNumber;
+    private String uniqueIdentifier;
+    public static final int DECIMAL_PRECISION = 2;
 
     protected int currentPeriod;
 
@@ -38,12 +39,13 @@ public abstract class Account {
         return principal;
     }
 
-    public String basicSetup(int accountNumber, BigDecimal initialBalance, BigDecimal interestRate, int period) {
+    public String basicSetup(String accountNumber, BigDecimal initialBalance, BigDecimal interestRate, int period) {
+        initialBalance = initialBalance.setScale(DECIMAL_PRECISION, RoundingMode.DOWN);
         this.setPrincipal(initialBalance);
         this.setRate(interestRate);
         this.setPeriod(period);
-        this.setAccountNumber(accountNumber);
-        String basicInitializationString = "with account number " + accountNumber + " has been created with an initial balance of " + initialBalance + " with a monthly interest rate of " + interestRate + " , and will gather interest for " + period + " months.";
+        this.setUniqueIdentifier(accountNumber);
+        String basicInitializationString = "Account number: " + accountNumber + "\nInitial balance: $" + initialBalance + " | Monthly interest: " + interestRate + "\nInterest calculated for: " + period + " months";
         return basicInitializationString;
     }
 
@@ -100,7 +102,8 @@ public abstract class Account {
 
     @Override
     public String toString() {
-        return "Account number: " + accountNumber + " | Period number: " + currentPeriod + " | Interest earned: " + interestEarned + " | Balance: " + principal;
+        return "Account number: " + uniqueIdentifier + " | Period number: " + currentPeriod + " | Interest earned: $" + interestEarned + " | Balance: $" + principal;
     }
+    
 
 }

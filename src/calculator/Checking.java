@@ -12,9 +12,7 @@ import java.math.RoundingMode;
  *
  * @author Owner
  */
-public class Checking extends Account {
-
-    
+public final class Checking extends Account {
 
     /**
      * @return the initializationString
@@ -29,16 +27,20 @@ public class Checking extends Account {
     public void setInitializationString(String initializationString) {
         this.initializationString = initializationString;
     }
-    public Checking(int accountNumber, BigDecimal initialBalance, BigDecimal interestRate, int period, int firstCheckNumber, BigDecimal monthlyFee){
+
+    public Checking(String accountNumber, BigDecimal initialBalance, BigDecimal interestRate, int period, int firstCheckNumber, BigDecimal monthlyFee) {
         String basicInitializationString = basicSetup(accountNumber, initialBalance, interestRate, period);
         this.setCheckNumber(firstCheckNumber);
         this.setMonthlyFee(monthlyFee);
-        String initializationString = "A checking account " + basicInitializationString;
-        initializationString += " This account has a monthly fee of " + monthlyFee;
-        initializationString+= ". Checks for this account will start with number " + firstCheckNumber;
+        String initializationString = "Created: checking acount | " + basicInitializationString;
+        initializationString += "\nMonthly fee: $" + monthlyFee;
+        initializationString += " | Check numbers begin with: " + firstCheckNumber;
         this.setInitializationString(initializationString);
+        Banker.displayInitialization(initializationString);
+
     }
     private String initializationString;
+
     /**
      * @return the checkNumber
      */
@@ -72,11 +74,16 @@ public class Checking extends Account {
     @Override
     public void calculate() {
         for (currentPeriod = 0; currentPeriod < period; currentPeriod++) {
+            if (principal.compareTo(new BigDecimal("0")) == -1) {
+                Banker.closeAccount(this);
+                return;
+            }
             interestEarned = principal.multiply(rate).setScale(DECIMAL_PRECISION, RoundingMode.DOWN);
-            principal = interestEarned.add(interestEarned);
+            principal = interestEarned.add(principal);
             principal = principal.subtract(monthlyFee);
             Banker.displayAccount(this);
         }
+        Banker.printSeparator(this);
 
     }
 }

@@ -11,9 +11,11 @@ import java.math.BigDecimal;
  *
  * @author Owner
  */
-public class Savings extends Account{
-    public Savings(int accountNumber, BigDecimal initialBalance, BigDecimal interestRate, int period){
-        basicSetup(accountNumber, initialBalance, interestRate, period);
+public final class Savings extends Account{
+    public Savings(String accountNumber, BigDecimal initialBalance, BigDecimal interestRate, int period){
+        String basicInitializationString = basicSetup(accountNumber, initialBalance, interestRate, period);
+        String initializationMessage = "Created: savings account | " + basicInitializationString;
+        Banker.displayInitialization(initializationMessage);
     }
 
 }
