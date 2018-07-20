@@ -5,12 +5,15 @@
  */
 package calculator;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author Owner
  */
 public class Savings extends Account{
-    public Savings(int accountNumber, double initialBalance, double interestRate, int period){
+    public Savings(int accountNumber, BigDecimal initialBalance, BigDecimal interestRate, int period){
         basicSetup(accountNumber, initialBalance, interestRate, period);
     }
+
 }

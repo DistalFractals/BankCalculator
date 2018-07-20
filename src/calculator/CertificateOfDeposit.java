@@ -5,13 +5,15 @@
  */
 package calculator;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author Owner
  */
 public class CertificateOfDeposit extends Account {
 
-    public CertificateOfDeposit(int accountNumber, double initialBalance, double interestRate, int period, int lengthToMature) {
+    public CertificateOfDeposit(int accountNumber, BigDecimal initialBalance, BigDecimal interestRate, int period, int lengthToMature) {
         basicSetup(accountNumber, initialBalance, interestRate, period);
         this.setLengthToMature(lengthToMature);
     }

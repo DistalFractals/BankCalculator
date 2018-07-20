@@ -5,6 +5,7 @@
  */
 package calculator;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,7 +19,7 @@ import javax.swing.JOptionPane;
 public class Banker {
 
     public static List<Account> accounts = new ArrayList<Account>();
-    private static final double DEFAULT_CHECKING_FEE = 5;
+    private static final BigDecimal DEFAULT_CHECKING_FEE = new BigDecimal("5");
 
     public static void main(String[] args) {
         promptUser();
@@ -35,9 +36,9 @@ public class Banker {
             String[] accountOptions = {savingsOption, checkingOption, certificateOfDepositOption};
             int accountDecision = JOptionPane.showOptionDialog(null, "What account would you like to create?", "Account Type", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, accountOptions, savingsOption);
             String initialBalanceString = JOptionPane.showInputDialog(null, "Enter initial balance.");
-            double initialBalance = Double.valueOf(initialBalanceString);
-            String interestRateString = JOptionPane.showInputDialog(null, "Enter the percent yearly interest rate for the account");
-            double interestRate = ((Double.valueOf(interestRateString)) / 100)/12;
+            BigDecimal initialBalance = new BigDecimal(initialBalanceString);
+            String interestRateString = JOptionPane.showInputDialog(null, "Enter the decimal monthly interest rate for the account");
+            BigDecimal interestRate = new BigDecimal(interestRateString);
             String numberOfPeriodsString = JOptionPane.showInputDialog(null, "How many periods should be calculated?");
             int numberOfPeriods = Integer.valueOf(numberOfPeriodsString);
 
@@ -66,7 +67,7 @@ public class Banker {
         });
     }
 
-    private static Account createAccount(int accountDecision, int accountNumber, double initialBalance, double interestRate, int period) throws Exception {
+    private static Account createAccount(int accountDecision, int accountNumber, BigDecimal initialBalance, BigDecimal interestRate, int period) throws Exception {
         switch (accountDecision) {
             case 0:
                 return new Savings(accountNumber, initialBalance, interestRate, period);

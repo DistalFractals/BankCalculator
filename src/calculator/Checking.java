@@ -5,11 +5,16 @@
  */
 package calculator;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  *
  * @author Owner
  */
 public class Checking extends Account {
+
+    
 
     /**
      * @return the initializationString
@@ -24,7 +29,7 @@ public class Checking extends Account {
     public void setInitializationString(String initializationString) {
         this.initializationString = initializationString;
     }
-    public Checking(int accountNumber, double initialBalance, double interestRate, int period, int firstCheckNumber, double monthlyFee){
+    public Checking(int accountNumber, BigDecimal initialBalance, BigDecimal interestRate, int period, int firstCheckNumber, BigDecimal monthlyFee){
         String basicInitializationString = basicSetup(accountNumber, initialBalance, interestRate, period);
         this.setCheckNumber(firstCheckNumber);
         this.setMonthlyFee(monthlyFee);
@@ -51,25 +56,25 @@ public class Checking extends Account {
     /**
      * @return the monthlyFee
      */
-    public double getMonthlyFee() {
+    public BigDecimal getMonthlyFee() {
         return monthlyFee;
     }
 
     /**
      * @param monthlyFee the monthlyFee to set
      */
-    public void setMonthlyFee(double monthlyFee) {
+    public void setMonthlyFee(BigDecimal monthlyFee) {
         this.monthlyFee = monthlyFee;
     }
     private int checkNumber;
-    private double monthlyFee;
+    private BigDecimal monthlyFee;
 
     @Override
     public void calculate() {
         for (currentPeriod = 0; currentPeriod < period; currentPeriod++) {
-            interestEarned = principal * rate;
-            principal = interestEarned + principal;
-            principal = principal - monthlyFee;
+            interestEarned = principal.multiply(rate).setScale(DECIMAL_PRECISION, RoundingMode.DOWN);
+            principal = interestEarned.add(interestEarned);
+            principal = principal.subtract(monthlyFee);
             Banker.displayAccount(this);
         }
 

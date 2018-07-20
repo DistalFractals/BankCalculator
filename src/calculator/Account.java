@@ -5,12 +5,15 @@
  */
 package calculator;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  *
  * @author Owner
  */
 public abstract class Account {
-
+    public static final int DECIMAL_PRECISION = 2;
     /**
      * @return the accountNumber
      */
@@ -31,11 +34,11 @@ public abstract class Account {
     /**
      * @return the principal
      */
-    public double getPrincipal() {
+    public BigDecimal getPrincipal() {
         return principal;
     }
 
-    public String basicSetup(int accountNumber, double initialBalance, double interestRate, int period) {
+    public String basicSetup(int accountNumber, BigDecimal initialBalance, BigDecimal interestRate, int period) {
         this.setPrincipal(initialBalance);
         this.setRate(interestRate);
         this.setPeriod(period);
@@ -47,21 +50,21 @@ public abstract class Account {
     /**
      * @param principal the principal to set
      */
-    public void setPrincipal(double principal) {
+    public void setPrincipal(BigDecimal principal) {
         this.principal = principal;
     }
 
     /**
      * @return the rate
      */
-    public double getRate() {
+    public BigDecimal getRate() {
         return rate;
     }
 
     /**
      * @param rate the rate to set
      */
-    public void setRate(double rate) {
+    public void setRate(BigDecimal rate) {
         this.rate = rate;
     }
 
@@ -79,17 +82,17 @@ public abstract class Account {
         this.period = period;
     }
 
-    protected double principal;
+    protected BigDecimal principal;
     //rate is per month
-    protected double rate;
+    protected BigDecimal rate;
     //period is a number of months
     protected int period;
-    protected double interestEarned;
+    protected BigDecimal interestEarned;
 
     public void calculate() {
         for (currentPeriod = 0; currentPeriod < period; currentPeriod++) {
-            interestEarned = principal * rate;
-            principal = interestEarned + principal;
+            interestEarned = principal.multiply(rate).setScale(DECIMAL_PRECISION, RoundingMode.DOWN);
+            principal = interestEarned.add(principal);
             Banker.displayAccount(this);
         }
         Banker.printSeparator(this);
